@@ -1,0 +1,12 @@
+/build/
+/bin/
+/obj/
+
+*.exe
+*.dll
+*.o
+*.so
+
+.vscode/
+.idea/
+*.code-workspace
