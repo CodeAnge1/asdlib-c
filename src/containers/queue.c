@@ -30,7 +30,7 @@ QueueErrorCode queueDequeue(Queue* queue, BaseType* data) {
 }
 
 QueueErrorCode queuePeek(Queue* queue, BaseType* data) {
-	ListErrorCode err = listPeekBack(queue, data);
+	ListErrorCode err = listPeekFront(queue, data);
 	return queueCollateError(err);
 }
 
