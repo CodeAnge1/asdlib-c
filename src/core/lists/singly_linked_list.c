@@ -1,5 +1,5 @@
 #include <stdlib.h>
-#include "asdlib/core/lists/singly_linked_list.h"
+#include "asdlib/singly_linked_list.h"
 
 ListErrorCode listInit(LinkedList* list) {
 	ListErrorCode err = LIST_NULL_POINTER;

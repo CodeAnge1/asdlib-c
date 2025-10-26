@@ -1,4 +1,4 @@
-#include "asdlib/containers/stack.h"
+#include "asdlib/stack.h"
 
 StackErrorCode stackCollateError(ListErrorCode err) {
 	switch (err) {
