@@ -54,4 +54,4 @@ size_t binaryTreeSize(BinaryTree* tree);
 bool binaryTreeIsLeaf(Node* node);
 bool binaryTreeIsEmpty(BinaryTree* tree);
 
-#endif BINARY_TREE_H
+#endif
