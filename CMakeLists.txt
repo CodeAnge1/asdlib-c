@@ -15,6 +15,7 @@ target_link_libraries(ASD_LIB
     singly_linked_list
     stack
     queue
+    binary_tree
 )
 
 target_include_directories(ASD_LIB INTERFACE
