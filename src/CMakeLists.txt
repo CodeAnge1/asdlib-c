@@ -34,5 +34,17 @@ target_include_directories(queue
         $<INSTALL_INTERFACE:include>
 )
 
+add_library(
+	binary_tree
+	STATIC
+	core/trees/binary_tree.c
+)
+
+target_include_directories(binary_tree
+    PUBLIC 
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../include>
+        $<INSTALL_INTERFACE:include>
+)
+
 target_link_libraries(stack PUBLIC singly_linked_list)
 target_link_libraries(queue PUBLIC singly_linked_list)
