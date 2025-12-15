@@ -2,8 +2,8 @@
 
 #include "asdlib/binary_tree.h"
 
-static Node* _createNode(BaseType data) {
-	Node* node = (Node*)malloc(sizeof(Node));
+static BinaryTreeNode* _createBinaryTreeNode(BaseType data) {
+	BinaryTreeNode* node = (BinaryTreeNode*)malloc(sizeof(BinaryTreeNode));
 	if (node) {
 		node->left = NULL;
 		node->right = NULL;
@@ -12,7 +12,7 @@ static Node* _createNode(BaseType data) {
 	return node;
 }
 
-static void _destroySubtree(size_t* size, Node* node, freeDataFunc freeData) {
+static void _destroySubtree(size_t* size, BinaryTreeNode* node, freeDataFunc freeData) {
     if (node == NULL) return;
     _destroySubtree(size, node->left, freeData);
     _destroySubtree(size, node->right, freeData);
@@ -21,19 +21,19 @@ static void _destroySubtree(size_t* size, Node* node, freeDataFunc freeData) {
     free(node);
 }
 
-static void _inorderRecursive(Node* node, visitFunc visit) {
+static void _inorderRecursive(BinaryTreeNode* node, visitFunc visit) {
 	if (node->left) _inorderRecursive(node->left, visit);
 	visit(node->data);
 	if (node->right) _inorderRecursive(node->right, visit);
 }
 
-static void _preorderRecursive(Node* node, visitFunc visit) {
+static void _preorderRecursive(BinaryTreeNode* node, visitFunc visit) {
 	visit(node->data);
 	if (node->left) _preorderRecursive(node->left, visit);
 	if (node->right) _preorderRecursive(node->right, visit);
 }
 
-static void _postorderRecursive(Node* node, visitFunc visit) {
+static void _postorderRecursive(BinaryTreeNode* node, visitFunc visit) {
 	if (node->left) _postorderRecursive(node->left, visit);
 	if (node->right) _postorderRecursive(node->right, visit);
 	visit(node->data);
@@ -63,10 +63,10 @@ BinaryTreeError binaryTreeDestroy(BinaryTree* tree) {
     return err;
 }
 
-BinaryTreeError binaryTreeAddLeftChild(BinaryTree* tree, Node* parent, BaseType data) {
+BinaryTreeError binaryTreeAddLeftChild(BinaryTree* tree, BinaryTreeNode* parent, BaseType data) {
 	BinaryTreeError err = parent ? BIN_TREE_OK : BIN_TREE_NULL_POINTER;
 	if (err == BIN_TREE_OK) {
-		Node* node = _createNode(data);
+		BinaryTreeNode* node = _createBinaryTreeNode(data);
 		if (node) {
 			if (parent->left) {
 				err = BIN_TREE_LEFT_NODE_EXISTS;
@@ -81,10 +81,10 @@ BinaryTreeError binaryTreeAddLeftChild(BinaryTree* tree, Node* parent, BaseType 
 	return err;
 }
 
-BinaryTreeError binaryTreeAddRightChild(BinaryTree* tree, Node* parent, BaseType data) {
+BinaryTreeError binaryTreeAddRightChild(BinaryTree* tree, BinaryTreeNode* parent, BaseType data) {
 	BinaryTreeError err = parent ? BIN_TREE_OK : BIN_TREE_NULL_POINTER;
 	if (err == BIN_TREE_OK) {
-		Node* node = _createNode(data);
+		BinaryTreeNode* node = _createBinaryTreeNode(data);
 		if (node) {
 			if (parent->right) {
 				err = BIN_TREE_RIGHT_NODE_EXISTS;
@@ -99,7 +99,7 @@ BinaryTreeError binaryTreeAddRightChild(BinaryTree* tree, Node* parent, BaseType
 	return err;
 }
 
-BinaryTreeError binaryTreeRemoveLeftSubtree(BinaryTree* tree, Node* parent) {
+BinaryTreeError binaryTreeRemoveLeftSubtree(BinaryTree* tree, BinaryTreeNode* parent) {
 	BinaryTreeError err = tree && parent ? BIN_TREE_OK : BIN_TREE_NULL_POINTER;
 	if (err == BIN_TREE_OK) {
         _destroySubtree(&tree->size, parent->left, tree->freeData);
@@ -108,7 +108,7 @@ BinaryTreeError binaryTreeRemoveLeftSubtree(BinaryTree* tree, Node* parent) {
     return err;
 }
 
-BinaryTreeError binaryTreeRemoveRightSubtree(BinaryTree* tree, Node* parent) {
+BinaryTreeError binaryTreeRemoveRightSubtree(BinaryTree* tree, BinaryTreeNode* parent) {
 	BinaryTreeError err = tree && parent ? BIN_TREE_OK : BIN_TREE_NULL_POINTER;
 	if (err == BIN_TREE_OK) {
         _destroySubtree(&tree->size, parent->right, tree->freeData);
@@ -145,7 +145,7 @@ size_t binaryTreeSize(BinaryTree* tree) {
 	return tree ? tree->size : 0;
 }
 
-bool binaryTreeIsLeaf(Node* node) {
+bool binaryTreeIsLeaf(BinaryTreeNode* node) {
 	return node ? (!node->left && !node->right) : false;
 }
 

@@ -10,14 +10,14 @@ typedef int (*compareFunc)(const BaseType v1, const BaseType v2);
 typedef void (*freeDataFunc)(BaseType data);
 typedef void (*visitFunc)(BaseType data);
 
-typedef struct Node {
+typedef struct BinaryTreeNode {
 	BaseType data;
-	struct Node* left;
-	struct Node* right;
-} Node;
+	struct BinaryTreeNode* left;
+	struct BinaryTreeNode* right;
+} BinaryTreeNode;
 
 typedef struct {
-	Node* root;
+	BinaryTreeNode* root;
 	size_t size;
 	compareFunc compare;
 	freeDataFunc freeData;
@@ -39,11 +39,11 @@ BinaryTreeError binaryTreeInit(BinaryTree* tree,
 							   freeDataFunc freeData);
 BinaryTreeError binaryTreeDestroy(BinaryTree* tree);
 
-BinaryTreeError binaryTreeAddLeftChild(BinaryTree* tree, Node* parent, BaseType data);
-BinaryTreeError binaryTreeAddRightChild(BinaryTree* tree, Node* parent, BaseType data);
+BinaryTreeError binaryTreeAddLeftChild(BinaryTree* tree, BinaryTreeNode* parent, BaseType data);
+BinaryTreeError binaryTreeAddRightChild(BinaryTree* tree, BinaryTreeNode* parent, BaseType data);
 
-BinaryTreeError binaryTreeRemoveLeftSubtree(BinaryTree* tree, Node* parent);
-BinaryTreeError binaryTreeRemoveRightSubtree(BinaryTree* tree, Node* parent);
+BinaryTreeError binaryTreeRemoveLeftSubtree(BinaryTree* tree, BinaryTreeNode* parent);
+BinaryTreeError binaryTreeRemoveRightSubtree(BinaryTree* tree, BinaryTreeNode* parent);
 
 BinaryTreeError binaryTreeInorderTraversal(BinaryTree* tree, visitFunc visit);
 BinaryTreeError binaryTreePreorderTraversal(BinaryTree* tree, visitFunc visit);
@@ -51,7 +51,7 @@ BinaryTreeError binaryTreePostorderTraversal(BinaryTree* tree, visitFunc visit);
 
 size_t binaryTreeSize(BinaryTree* tree);
 
-bool binaryTreeIsLeaf(Node* node);
+bool binaryTreeIsLeaf(BinaryTreeNode* node);
 bool binaryTreeIsEmpty(BinaryTree* tree);
 
 #endif
